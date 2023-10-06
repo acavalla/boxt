@@ -35,5 +35,11 @@ describe 'Robot' do
       robot.right()
       expect(robot.direction).to eq(:W)
     end
+
+    it 'can turn left from south and will then be facing east' do
+      robot = Robot.new(0,0,"SOUTH")
+      robot.left()
+      expect(robot.direction).to eq(:E)
+    end
   end
 end

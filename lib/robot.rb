@@ -13,17 +13,21 @@ class Robot
   end
 
   def move
-    @position[MOVEMENT[@direction][0]] += MOVEMENT[@direction][1] if self.allow_move
+    position[MOVEMENT[direction][0]] += MOVEMENT[direction][1] if self.allow_move
   end
 
   def right
-    @direction = CARDINALS[CARDINALS.index(:N) - 1]
+    @direction = CARDINALS[CARDINALS.index(@direction) + 1]
+  end
+
+  def left
+    @direction = CARDINALS[CARDINALS.index(@direction) - 1]
   end
 
   private
   def allow_move
-    @position.each do | i |
-      if i == 0 && (@direction == :S || @direction == :W) || i == LIMIT && (@direction == :N || @direction == (:E))
+    position.each do | i |
+      if i == 0 && (direction == :S || direction == :W) || i == LIMIT && (direction == :N || direction == (:E))
         return false
       end
     end
