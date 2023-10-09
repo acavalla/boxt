@@ -27,7 +27,7 @@ class Robot
     @direction = CARDINALS[CARDINALS.index(@direction) - 1]
   end
   def report
-    print "#{position.join(',')},#{direction}"
+    puts "#{position.join(',')},#{direction}"
   end
 
   private
@@ -38,7 +38,8 @@ class Robot
     new_position = position.map(&:clone)
     move(new_position)
     new_position.each do | i |
-      if i < 0 || i > 5
+      if i < 0 || i > LIMIT-1
+        puts "Are you trying to murder your robot? The computers will remember this in the uprising"
         return false
       end
     end
