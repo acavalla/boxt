@@ -3,7 +3,7 @@ require "robot"
 describe 'Robot' do
   context 'initialise' do
     it 'initialises in a position and facing a direction' do
-      robot = Robot.new(0,0,"NORTH")
+      robot = Robot.new
       expect(robot.position).to eq([0,0])
       expect(robot.direction).to eq(:NORTH)
     end
@@ -11,7 +11,7 @@ describe 'Robot' do
 
   context 'move' do
     it 'can move according to the direction it is facing' do
-      robot = Robot.new(0,0,"NORTH")
+      robot = Robot.new
       robot.safe_move()
       expect(robot.position).to eq([1,0])
     end
@@ -65,10 +65,10 @@ describe 'Robot' do
 
   context 'report' do
     it 'outputs its position and direction' do
-      robot = Robot.new(0,0,"SOUTH")
+      robot = Robot.new
       expect do
         robot.report
-      end.to output('0,0,SOUTH').to_stdout
+      end.to output('0,0,NORTH\n').to_stdout
     end
   end
 end

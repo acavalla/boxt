@@ -3,17 +3,20 @@ class Robot
   MOVEMENT = { NORTH: [0, 1], SOUTH: [0,-1], EAST: [1,1], WEST: [1,-1] }
   LIMIT = 5
   CARDINALS = [:NORTH, :EAST, :SOUTH, :WEST, :NORTH, :WEST]
-  def initialize(x, y, direction)
+  def initialize(x = 0, y = 0, direction = :NORTH)
     self.place(x, y, direction)
   end
 
   def place(x, y, direction)
-    @position = [x, y]
+    @position = [x.to_i, y.to_i]
     @direction = direction.to_sym
   end
 
   def safe_move
-    move(position) if self.allow_move
+    if self.allow_move
+      move(position)
+      puts "Robot moved!"
+    end
   end
 
   def right
