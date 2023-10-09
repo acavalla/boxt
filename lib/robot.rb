@@ -12,8 +12,8 @@ class Robot
     @direction = direction[0].to_sym
   end
 
-  def move
-    position[MOVEMENT[direction][0]] += MOVEMENT[direction][1] if self.allow_move
+  def safe_move
+    move(position) if self.allow_move
   end
 
   def right
@@ -25,9 +25,12 @@ class Robot
   end
 
   private
+  def move(position)
+    position[MOVEMENT[direction][0]] += MOVEMENT[direction][1]
+  end
   def allow_move
     new_position = position.map(&:clone)
-    new_position[MOVEMENT[direction][0]] += MOVEMENT[direction][1]
+    move(new_position)
     new_position.each do | i |
       if i < 0 || i > 5
         return false
