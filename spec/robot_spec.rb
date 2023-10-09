@@ -5,7 +5,7 @@ describe 'Robot' do
     it 'initialises in a position and facing a direction' do
       robot = Robot.new(0,0,"NORTH")
       expect(robot.position).to eq([0,0])
-      expect(robot.direction).to eq(:N)
+      expect(robot.direction).to eq(:NORTH)
     end
   end
 
@@ -45,13 +45,13 @@ describe 'Robot' do
     it 'can turn right from south and will then be facing west' do
       robot = Robot.new(0,0,"SOUTH")
       robot.right()
-      expect(robot.direction).to eq(:W)
+      expect(robot.direction).to eq(:WEST)
     end
 
     it 'can go right from west and will then be facing north' do
       robot = Robot.new(0,0,"WEST")
       robot.right()
-      expect(robot.direction).to eq(:N)
+      expect(robot.direction).to eq(:NORTH)
     end
   end
 
@@ -59,7 +59,16 @@ describe 'Robot' do
     it 'can turn left from south and will then be facing east' do
       robot = Robot.new(0,0,"SOUTH")
       robot.left()
-      expect(robot.direction).to eq(:E)
+      expect(robot.direction).to eq(:EAST)
+    end
+  end
+
+  context 'report' do
+    it 'outputs its position and direction' do
+      robot = Robot.new(0,0,"SOUTH")
+      expect do
+        robot.report
+      end.to output('0,0,SOUTH').to_stdout
     end
   end
 end
