@@ -16,9 +16,10 @@ class CommandCheck
   end
 
   def command_check(command)
-    return false unless COMMANDS.include?(command.split[0])
+    order = command.split[0]
+    return false unless COMMANDS.include?(order)
 
-    case command
+    case order
     when 'MOVE'
       @robot.safe_move
     when 'LEFT'
@@ -38,9 +39,7 @@ class CommandCheck
       return false
     end
 
-    x = command.split(',')[0].to_i
-    y = command.split(',')[1].to_i
-    direction = command.split(',')[2]
+    x, y, direction = *parse_command(command)
 
     if outside_table_constraints(x) || outside_table_constraints(y)
       puts "Robot can't go there!"
@@ -54,14 +53,23 @@ class CommandCheck
 
   def command_place(command)
     if command.split[1].nil?
-      @robot = Robot.new
+      @robot ||= Robot.new
     elsif place_check(command.split[1])
-      @robot = Robot.new(command)
+      x, y, direction = *parse_command(command.split[1])
+      @robot ? @robot.place(x, y, direction) : Robot.new(x, y, direction)
     end
   end
+
   private
 
   def outside_table_constraints(x)
     x.negative? || x > 4
+  end
+
+  def parse_command(command)
+    x = command.split(',')[0].to_i
+    y = command.split(',')[1].to_i
+    direction = command.split(',')[2]
+    [x,y,direction]
   end
 end

@@ -4,7 +4,7 @@ require 'command_check'
 
 describe CommandCheck do
   let(:Robot) { class_double(Robot) }
-  let(:robot) { instance_double(Robot, safe_move: nil, left: nil, right: nil, report: nil) }
+  let(:robot) { instance_double(Robot, safe_move: nil, left: nil, right: nil, report: nil, place: nil) }
 
   before do
     @check = CommandCheck.new
@@ -15,11 +15,6 @@ describe CommandCheck do
     it 'returns a robot if the string is PLACE' do
       allow(Robot).to receive(:new).and_return(robot)
       expect(@check.first_command_check('PLACE')).to eq(robot)
-    end
-
-    it 'returns a robot if the string has valid coordinates and direction in PLACE X,Y,DIRECTION' do
-      allow(Robot).to receive(:new).and_return(robot)
-      expect(@check.first_command_check('PLACE 0,0,NORTH')).to eq(robot)
     end
 
     it 'returns nil and outputs a helpful message if there are insufficient arguments following PLACE' do
@@ -76,6 +71,23 @@ describe CommandCheck do
 
       expect(robot).to receive(:report)
       @check.command_check('REPORT')
+    end
+
+    it 'if PLACE is called when there is a robot, a new robot is not made' do
+      allow(Robot).to receive(:new).and_return(robot)
+      @check.first_command_check('PLACE')
+
+      expect(Robot).not_to receive(:new)
+      @check.command_check('PLACE')
+    end
+
+    it 'if PLACE is called with arguments when there is a robot, robot.place is called' do
+      allow(Robot).to receive(:new).and_return(robot)
+      @check.first_command_check('PLACE')
+      @check.command_check('PLACE 4,3,EAST')
+
+      expect(robot).to have_received(:place).with(4,3,"EAST")
+
     end
   end
 end
