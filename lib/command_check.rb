@@ -2,18 +2,13 @@
 
 require_relative 'robot'
 
-class RobotCheck
+class CommandCheck
   COMMANDS = %w[PLACE MOVE LEFT RIGHT REPORT].freeze
 
   def first_command_check(command)
     if command.split[0] == 'PLACE'
-      if command.split[1].nil?
-        puts 'Well done! You have a robot!'
-        @robot = Robot.new
-      elsif place_check(command.split[1])
-        puts 'Well done! You have a robot!'
-        @robot = Robot.new(command)
-      end
+      puts 'Well done! You have a robot!'
+      command_place(command)
     else
       puts 'Please enter PLACE followed by X,Y,DIRECTION'
       false
@@ -32,6 +27,8 @@ class RobotCheck
       @robot.right
     when 'REPORT'
       @robot.report
+    when 'PLACE'
+      command_place(command)
     end
   end
 
@@ -55,6 +52,13 @@ class RobotCheck
     true
   end
 
+  def command_place(command)
+    if command.split[1].nil?
+      @robot = Robot.new
+    elsif place_check(command.split[1])
+      @robot = Robot.new(command)
+    end
+  end
   private
 
   def outside_table_constraints(x)

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require './lib/robot'
-require './lib/robot_check'
+require './lib/command_check'
 
-check = RobotCheck.new
+check = CommandCheck.new
 
 puts 'What would you like to do?'
 command = gets.chomp!
@@ -16,4 +16,5 @@ end
 loop do
   puts 'What do you want to do now?'
   command = gets.chomp!
+  check.command_check(command)
 end

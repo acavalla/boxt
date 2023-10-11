@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-require 'robot_check'
+require 'command_check'
 
-describe RobotCheck do
+describe CommandCheck do
   let(:Robot) { class_double(Robot) }
   let(:robot) { instance_double(Robot, safe_move: nil, left: nil, right: nil, report: nil) }
 
   before do
-    @check = RobotCheck.new
-    RobotCheck.any_instance.stub(:puts)
+    @check = CommandCheck.new
+    CommandCheck.any_instance.stub(:puts)
   end
 
   context 'first_command_check' do
