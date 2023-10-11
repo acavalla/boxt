@@ -1,22 +1,30 @@
+# frozen_string_literal: true
+
 class Robot
   attr_reader :position, :direction
-  MOVEMENT = { NORTH: [0, 1], SOUTH: [0,-1], EAST: [1,1], WEST: [1,-1] }
+
+  MOVEMENT = { NORTH: [0, 1], SOUTH: [0, -1], EAST: [1, 1], WEST: [1, -1] }.freeze
   LIMIT = 5
-  CARDINALS = [:NORTH, :EAST, :SOUTH, :WEST, :NORTH, :WEST]
+  CARDINALS = %i[NORTH EAST SOUTH WEST NORTH WEST].freeze
   def initialize(x = 0, y = 0, direction = :NORTH)
-    self.place(x, y, direction)
+    x = x.to_i
+    y = y.to_i
+    direction = direction.to_sym
+    place(x, y, direction)
   end
 
   def place(x, y, direction)
+    return unless x >= 0 && x < 5 && y >= 0 && y < 5
+
     @position = [x.to_i, y.to_i]
     @direction = direction.to_sym
   end
 
   def safe_move
-    if self.allow_move
-      move(position)
-      puts "Robot moved!"
-    end
+    return unless allow_move
+
+    move(position)
+    puts 'Robot moved!'
   end
 
   def right
@@ -26,20 +34,23 @@ class Robot
   def left
     @direction = CARDINALS[CARDINALS.index(@direction) - 1]
   end
+
   def report
     puts "#{position.join(',')},#{direction}"
   end
 
   private
+
   def move(position)
     position[MOVEMENT[direction][0]] += MOVEMENT[direction][1]
   end
+
   def allow_move
     new_position = position.map(&:clone)
     move(new_position)
-    new_position.each do | i |
-      if i < 0 || i > LIMIT-1
-        puts "Are you trying to murder your robot? The computers will remember this in the uprising"
+    new_position.each do |i|
+      if i.negative? || i > LIMIT - 1
+        puts 'Are you trying to murder your robot? The computers will remember this in the uprising'
         return false
       end
     end
