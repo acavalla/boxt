@@ -29,3 +29,7 @@ The options are:
 * MOVE
 * REPORT
   * Output: 3,3,NORTH
+
+
+### Running tests
+To run the tests, run `rspec`.
