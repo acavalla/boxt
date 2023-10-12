@@ -6,7 +6,7 @@ class CommandCheck
   COMMANDS = %w[PLACE MOVE LEFT RIGHT REPORT].freeze
 
   attr_reader :robot
-  def command_check(command)
+  def command_check(command, robot = nil)
     order = command.split[0]
     return false unless COMMANDS.include?(order)
 
@@ -15,7 +15,6 @@ class CommandCheck
     else
       if order == 'PLACE'
         command_place(command)
-        puts 'Well done! You have a robot!'
       else
         puts 'Please enter PLACE followed by X,Y,DIRECTION'
         false
@@ -28,7 +27,7 @@ class CommandCheck
       @robot ||= Robot.new
     elsif place_args_valid?(command.split[1])
       x, y, direction = *parse_command(command.split[1])
-      robot ? robot.place(x, y, direction) : Robot.new(x, y, direction)
+      robot ? robot.place(x, y, direction) : @robot = Robot.new(x, y, direction)
     end
   end
 
