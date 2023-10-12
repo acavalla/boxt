@@ -34,7 +34,7 @@ The options are:
 ### Running tests
 To run the tests, run `rspec`.
 
-                                         |
+`                                         |
                                          |
                                          |
                                          |
@@ -63,3 +63,4 @@ _\_o/           oo~)/
 | | |          | |  |
 |_|_|          |_|__|
 [__)_)        (_(___]
+`
