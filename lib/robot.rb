@@ -6,6 +6,7 @@ class Robot
   MOVEMENT = { NORTH: [1, 1], SOUTH: [1, -1], EAST: [0, 1], WEST: [0, -1] }.freeze
   LIMIT = 5
   CARDINALS = %i[NORTH EAST SOUTH WEST NORTH WEST].freeze
+
   def initialize(x, y, direction)
     puts 'Well done! You have a robot!'
     place(x, y, direction)
