@@ -7,11 +7,11 @@ Ruby
 Please enter `irb -r './main.rb'` in your console. The game will greet you with 'What would you like to do?'
 
 The options are:
-o PLACE X,Y,F
-o MOVE
-o LEFT
-o RIGHT
-o REPORT
+* PLACE X,Y,F (where X,Y are coordinates and F is a cardinal direction)
+* MOVE
+* LEFT
+* RIGHT
+* REPORT
 
 ### Test data
 * PLACE 0,0,NORTH

@@ -3,7 +3,7 @@
 class Robot
   attr_reader :position, :direction
 
-  MOVEMENT = { NORTH: [0, 1], SOUTH: [0, -1], EAST: [1, 1], WEST: [1, -1] }.freeze
+  MOVEMENT = { NORTH: [1, 1], SOUTH: [1, -1], EAST: [0, 1], WEST: [0, -1] }.freeze
   LIMIT = 5
   CARDINALS = %i[NORTH EAST SOUTH WEST NORTH WEST].freeze
   def initialize(x, y, direction)

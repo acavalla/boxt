@@ -18,31 +18,31 @@ describe 'Robot' do
   context 'move' do
     it 'can move according to the direction it is facing' do
       @robot.safe_move
-      expect(@robot.position).to eq([1, 0])
+      expect(@robot.position).to eq([0, 1])
     end
 
-    it 'cannot fall off the table by moving north from x=4' do
-      robot = Robot.new(4, 2, 'NORTH')
-      robot.safe_move
-      expect(robot.position).to eq([4, 2])
-    end
-
-    it 'cannot fall off the table by moving south from x=0' do
-      robot = Robot.new(0, 2, 'SOUTH')
+    it 'cannot fall off the table by moving west from x=0' do
+      robot = Robot.new(0, 2, 'WEST')
       robot.safe_move
       expect(robot.position).to eq([0, 2])
     end
 
-    it 'cannot fall off the table by moving east from y=4' do
-      robot = Robot.new(2, 4, 'EAST')
+    it 'cannot fall off the table by moving east from x=4' do
+      robot = Robot.new(4, 2, 'EAST')
       robot.safe_move
-      expect(robot.position).to eq([2, 4])
+      expect(robot.position).to eq([4, 2])
     end
 
-    it 'cannot fall off the table by moving west from y=0' do
-      robot = Robot.new(2, 0, 'WEST')
+    it 'cannot fall off the table by moving south from y=0' do
+      robot = Robot.new(2, 0, 'SOUTH')
       robot.safe_move
       expect(robot.position).to eq([2, 0])
+    end
+
+    it 'cannot fall off the table by moving north from y=4' do
+      robot = Robot.new(2, 4, 'NORTH')
+      robot.safe_move
+      expect(robot.position).to eq([2, 4])
     end
   end
 
