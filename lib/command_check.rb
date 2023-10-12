@@ -13,7 +13,7 @@ class CommandCheck
 
     if robot
       follow_order(command)
-    elsif order == 'PLACE'
+    elsif order == 'PLACE' && command.split.length == 2
       command_place(command)
     else
       puts 'Please enter PLACE followed by X,Y,DIRECTION'
@@ -22,12 +22,10 @@ class CommandCheck
   end
 
   def command_place(command)
-    if no_arguments_after_place?(command)
-      @robot ||= Robot.new
-    elsif place_args_valid?(command.split[1])
-      x, y, direction = *parse_command(command.split[1])
-      robot ? robot.place(x, y, direction) : @robot = Robot.new(x, y, direction)
-    end
+    return unless place_args_valid?(command.split[1])
+
+    x, y, direction = *parse_command(command.split[1])
+    robot ? robot.place(x, y, direction) : @robot = Robot.new(x, y, direction)
   end
 
   private
@@ -70,6 +68,10 @@ class CommandCheck
 
     x, y, direction = *parse_command(command)
 
+    valid_parameters?(x, y, direction)
+  end
+
+  def valid_parameters?(x, y, direction)
     if outside_table_constraints(x) || outside_table_constraints(y)
       puts "Robot can't go there!"
       return false

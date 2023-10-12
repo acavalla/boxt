@@ -4,7 +4,7 @@ require 'robot'
 
 describe 'Robot' do
   before do
-    @robot = Robot.new
+    @robot = Robot.new(0, 0, 'NORTH')
     Robot.any_instance.stub(:puts)
   end
 
