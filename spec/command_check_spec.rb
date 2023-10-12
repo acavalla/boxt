@@ -85,7 +85,7 @@ describe CommandCheck do
       @check.command_check('PLACE')
       @check.command_check('PLACE 4,3,EAST')
 
-      expect(robot).to have_received(:place).with(4,3,"EAST")
+      expect(robot).to have_received(:place).with(4, 3, 'EAST')
     end
   end
 end

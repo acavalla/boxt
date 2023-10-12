@@ -24,11 +24,11 @@ class Robot
   end
 
   def right
-    @direction = CARDINALS[CARDINALS.index(@direction) + 1]
+    @direction = CARDINALS[CARDINALS.index(direction) + 1]
   end
 
   def left
-    @direction = CARDINALS[CARDINALS.index(@direction) - 1]
+    @direction = CARDINALS[CARDINALS.index(direction) - 1]
   end
 
   def report

@@ -6,19 +6,18 @@ class CommandCheck
   COMMANDS = %w[PLACE MOVE LEFT RIGHT REPORT].freeze
 
   attr_reader :robot
+
   def command_check(command, robot = nil)
     order = command.split[0]
     return false unless COMMANDS.include?(order)
 
     if robot
       follow_order(command)
+    elsif order == 'PLACE'
+      command_place(command)
     else
-      if order == 'PLACE'
-        command_place(command)
-      else
-        puts 'Please enter PLACE followed by X,Y,DIRECTION'
-        false
-      end
+      puts 'Please enter PLACE followed by X,Y,DIRECTION'
+      false
     end
   end
 
@@ -41,7 +40,7 @@ class CommandCheck
     x = command.split(',')[0].to_i
     y = command.split(',')[1].to_i
     direction = command.split(',')[2]
-    [x,y,direction]
+    [x, y, direction]
   end
 
   def follow_order(command)
