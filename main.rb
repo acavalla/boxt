@@ -8,7 +8,7 @@ check = CommandCheck.new
 puts 'What would you like to do?'
 command = gets.chomp!
 
-until check.first_command_check(command)
+until check.command_check(command)
   puts 'What would you like to do?'
   command = gets.chomp!
 end

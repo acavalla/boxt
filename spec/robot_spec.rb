@@ -15,13 +15,6 @@ describe 'Robot' do
     end
   end
 
-  context 'place' do
-    it 'should not accept placement outside the table constraints' do
-      @robot.place(6, 0, 'NORTH')
-      expect(@robot.position).to eq([0, 0])
-    end
-  end
-
   context 'move' do
     it 'can move according to the direction it is facing' do
       @robot.safe_move

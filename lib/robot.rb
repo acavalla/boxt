@@ -7,16 +7,11 @@ class Robot
   LIMIT = 5
   CARDINALS = %i[NORTH EAST SOUTH WEST NORTH WEST].freeze
   def initialize(x = 0, y = 0, direction = :NORTH)
-    x = x.to_i
-    y = y.to_i
-    direction = direction.to_sym
     place(x, y, direction)
   end
 
   def place(x, y, direction)
-    return unless x >= 0 && x < 5 && y >= 0 && y < 5
-
-    @position = [x.to_i, y.to_i]
+    @position = [x, y]
     @direction = direction.to_sym
   end
 
