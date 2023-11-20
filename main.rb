@@ -8,10 +8,12 @@ check = CommandCheck.new
 puts 'What would you like to do?'
 command = gets.chomp!
 
-until (robot = check.command_check(command))
+until check.initial_command_check(command)
   puts 'What would you like to do?'
   command = gets.chomp!
 end
+
+robot = Robot.new(*check.initial_command_check(command))
 
 loop do
   puts 'What do you want to do now?'

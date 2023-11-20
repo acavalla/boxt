@@ -11,35 +11,37 @@ describe CommandCheck do
     CommandCheck.any_instance.stub(:puts)
   end
 
-  context 'command_check' do
+  context 'initial_command_check' do
     it 'does not return a robot if the string is PLACE' do
       command = 'PLACE'
-      expect(@check.command_check(command)).to be false
+      expect(@check.initial_command_check(command)).to be false
       expect(@check).to have_received(:puts).with('Please enter PLACE followed by X,Y,DIRECTION')
     end
 
     it 'returns nil and outputs a helpful message if there are insufficient arguments following PLACE' do
       command = 'PLACE ROBOT'
-      expect(@check.command_check(command)).to be nil
+      expect(@check.initial_command_check(command)).to be nil
       expect(@check).to have_received(:puts).with('Please enter PLACE followed by X,Y,DIRECTION')
     end
 
     it 'returns nil and outputs a helpful message if the coordinates are outside table constraints' do
       command = 'PLACE 0,5,NORTH'
-      expect(@check.command_check(command)).to be nil
+      expect(@check.initial_command_check(command)).to be nil
       expect(@check).to have_received(:puts).with("Robot can't go there!")
     end
 
     it 'returns nil and outputs a helpful message if the direction is not valid' do
       command = 'PLACE 0,0,FLINT'
-      expect(@check.command_check(command)).to be nil
+      expect(@check.initial_command_check(command)).to be nil
       expect(@check).to have_received(:puts).with("That's not a valid direction!")
     end
 
     it 'checks an input is one of a few permitted strings' do
-      expect(@check.command_check('HI ROBOT')).to be false
+      expect(@check.initial_command_check('HI ROBOT')).to be false
     end
+  end
 
+  context 'command_check' do
     it 'calls move on the robot when the command is MOVE' do
       allow(Robot).to receive(:new).and_return(robot)
       @check.command_check('PLACE 0,0,NORTH', robot)
@@ -70,22 +72,6 @@ describe CommandCheck do
 
       expect(robot).to receive(:report)
       @check.command_check('REPORT', robot)
-    end
-
-    it 'if PLACE is called when there is a robot, a new robot is not made' do
-      allow(Robot).to receive(:new).and_return(robot)
-      @check.command_check('PLACE 0,0,NORTH')
-
-      expect(Robot).not_to receive(:new)
-      @check.command_check('PLACE 0,0,NORTH', robot)
-    end
-
-    it 'if PLACE is called with arguments when there is a robot, robot.place is called' do
-      allow(Robot).to receive(:new).and_return(robot)
-      @check.command_check('PLACE 0,0,NORTH')
-      @check.command_check('PLACE 4,3,EAST')
-
-      expect(robot).to have_received(:place).with(4, 3, 'EAST')
     end
   end
 end

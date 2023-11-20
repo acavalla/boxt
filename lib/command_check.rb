@@ -7,25 +7,31 @@ class CommandCheck
 
   attr_reader :robot
 
-  def command_check(command, robot = nil)
+  def command_check(command, robot)
     order = command.split[0]
     return false unless COMMANDS.include?(order)
 
-    if robot
-      follow_order(command)
-    elsif order == 'PLACE' && command.split.length == 2
-      command_place(command)
+    follow_order(command, robot)
+  end
+
+  def initial_command_check(command)
+    order = command.split[0]
+    if order == 'PLACE' && command.split.length == 2
+      command_place(command, nil)
     else
       puts 'Please enter PLACE followed by X,Y,DIRECTION'
       false
     end
   end
 
-  def command_place(command)
+  def command_place(command, robot = nil)
     return unless place_args_valid?(command.split[1])
 
     x, y, direction = *parse_command(command.split[1])
-    robot ? robot.place(x, y, direction) : @robot = Robot.new(x, y, direction)
+
+    return x, y, direction unless robot
+
+    robot.place(x, y, direction)
   end
 
   private
@@ -41,7 +47,7 @@ class CommandCheck
     [x, y, direction]
   end
 
-  def follow_order(command)
+  def follow_order(command, robot)
     case command.split[0]
     when 'MOVE'
       robot.safe_move
@@ -52,7 +58,7 @@ class CommandCheck
     when 'REPORT'
       robot.report
     when 'PLACE'
-      command_place(command)
+      command_place(command, robot)
     end
   end
 
