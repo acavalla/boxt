@@ -5,8 +5,6 @@ require_relative 'robot'
 class CommandCheck
   COMMANDS = %w[PLACE MOVE LEFT RIGHT REPORT].freeze
 
-  attr_reader :robot
-
   def command_check(command, robot)
     order = command.split[0]
     return false unless COMMANDS.include?(order)
